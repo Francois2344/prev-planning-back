@@ -1,18 +1,33 @@
 const express = require("express");
 const cors = require("cors");
-
-const mongoose = require("mongoose");
 const app = express();
-const port = 3000;
+const actionAgency = require("./models/agency");
+const actionOther = require("./models/other");
+const actionHazard = require("./models/hazard");
+const actionSite = require("./models/site");
+
+require("./initDB")();
 
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect(
-  "mongodb+srv://FDAdmin:Frde2344058616@planningproject.lwyie.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-  {
-    useNewUrlParser: true,
-  }
-);
+const PORT = process.env.PORT;
 
-app.listen(port, () => console.log(`Example app listening on port port!`));
+app.get('/', (req, res) => {
+  const agency = new actionAgency({agencyName:"Accueil Nouveau"});
+  const other = new actionOther({otherName:"Formation"});
+  const hazard = new actionHazard({hazardName:"Bureau"});
+  const site = new actionSite({siteName:"Audit Chantier"});
+  try {
+    agency.save();
+    other.save();
+    hazard.save();
+    site.save();
+    res.send("inserted data")
+  } catch (err) {
+    console.log(err);
+  }
+});
+app.listen(PORT, () => {
+  console.log("Server started on port" + PORT + "...");
+});
