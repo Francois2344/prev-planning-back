@@ -6,23 +6,27 @@ const actionOther = require("./models/other");
 const actionHazard = require("./models/hazard");
 const actionSite = require("./models/site");
 
+const userRouter = require('./routes/users');
+
 require("./initDB")();
 
 app.use(express.json());
 app.use(cors());
 
+app.use('./users', userRouter);
+
 const PORT = process.env.PORT;
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
   const agency = new actionAgency({agencyName:"Accueil Nouveau"});
   const other = new actionOther({otherName:"Formation"});
   const hazard = new actionHazard({hazardName:"Bureau"});
   const site = new actionSite({siteName:"Audit Chantier"});
   try {
-    agency.save();
-    other.save();
-    hazard.save();
-    site.save();
+    await agency.save();
+    await other.save();
+    await hazard.save();
+    await site.save();
     res.send("inserted data")
   } catch (err) {
     console.log(err);
