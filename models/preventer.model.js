@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 
 
 const prevSchema = new mongoose.Schema({
-    firstName: {
+    firstname: {
         type: String,
         required: true,
         unique: true
     },
-    lastName : {
+    lastname : {
         type: String,
         required: true,
         unique: true

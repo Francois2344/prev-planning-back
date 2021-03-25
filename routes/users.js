@@ -1,26 +1,37 @@
-const router = require ('express').Router;
-let User = require('../models/preventer');
+const router = require("express").Router();
+let User = require("../models/preventer.model");
 
-router.route('/').get((req,res)=> {
-    User.find()
-    .then(users => res.json(users))
-    .catch(err => res.status(400).json('Error: ' + err));
-})
+//ROUTE GET
+router.route("/").get((req, res) => {
+  User.find()
+    .then((users) => res.json(users))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
 
-router.route('/insert').post((req, res) => {
-    const firstName = req.body.firstName
-    const lastName = req.body.lastName
+router.route("/:id").get((req, res) => {
+  User.findById(req.params.id)
+    .then(() => res.json(exercise))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
 
-    const newUser = new User ({firstName, lastName});
+//ROUTE POST
+router.route("/add").post((req, res) => {
+  const firstname = req.body.firstname;
+  const lastname = req.body.lastname;
 
-    newUser.save()
-    .then(() => res.json('User added'))
-    .catch(err => res.status(400).json('Error: ' + err));
-})
+  const newUser = new User({ firstname, lastname });
 
-router.route('/delete').delete((req, res) => {
-    const user = User.deleteOne()
-})
+  newUser
+    .save()
+    .then(() => res.json("User added"))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
 
+//ROUTE DELETE
+router.route('/:id').delete((req, res) => {
+    User.findByIdAndDelete(req.params.id)
+    .then(() => res.json('User deleted.'))
+    .catch(err => res.status(400).json('Error: ' + err))
+});
 
 module.exports = router;
