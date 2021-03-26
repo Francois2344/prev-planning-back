@@ -1,37 +1,37 @@
 const router = require('express').Router();
-let Hazard = require('../models/hazard.model');
+const Hazard = require('../models/hazard.model');
 
-//ROUTE GET
+// ROUTE GET
 router.route('/').get((req, res) => {
   Hazard.find()
     .then((hazard) => res.json(hazard))
-    .catch((err) => res.status(400).json('Error: ' + err));
+    .catch((err) => res.status(400).json(`Error: ${err}`));
 });
 
-//ROUTE POST
+// ROUTE POST
 router.route('/add').post((req, res) => {
-  const hazardname = req.body.hazardname;
+  const { hazardname } = req.body;
 
   const newHazard = new Hazard({ hazardname });
 
   newHazard
     .save()
     .then(() => res.json('Agency added'))
-    .catch((err) => res.status(400).json('Error: ' + err));
+    .catch((err) => res.status(400).json(`Error: ${err}`));
 });
 
-//ROUTE DELETE
+// ROUTE DELETE
 router.route('/:id').delete((req, res) => {
   Hazard.findByIdAndDelete(req.params.id)
     .then(() => res.json('Hazard deleted'))
-    .catch((err) => res.status(400).json('Error: ' + err));
+    .catch((err) => res.status(400).json(`Error: ${err}`));
 });
 
-//ROUTE PUT
+// ROUTE PUT
 router.route('/:id').put((req, res) => {
   Hazard.findByIdAndUpdate(req.params.id)
     .then(() => res.json('Hazard updated'))
-    .catch((err) => res.status(400).json('Error: ' + err));
+    .catch((err) => res.status(400).json(`Error: ${err}`));
 });
 
 module.exports = router;

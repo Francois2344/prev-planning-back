@@ -21,9 +21,9 @@ const sitesRouter = require('./routes/site');
 app.use('/users', usersRouter);
 app.use('/agencies', agenciesRouter);
 app.use('/hazards', hazardsRouter);
-app.use('/other', othersRouter);
-app.use('/site', sitesRouter);
+app.use('/others', othersRouter);
+app.use('/sites', sitesRouter);
 
 app.listen(PORT, () => {
-  console.log('Server started on port' + PORT + '...');
+  console.log(`Server started on port${PORT}...`);
 });

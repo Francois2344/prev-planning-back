@@ -1,8 +1,7 @@
-const { connection, connect } = require("mongoose");
-const { config } = require("dotenv");
+const { connection, connect } = require('mongoose');
+const { config } = require('dotenv');
 
 module.exports = () => {
- 
   config();
 
   const uri = process.env.MONGODB_URI;
@@ -17,25 +16,26 @@ module.exports = () => {
     useCreateIndex: true,
   })
     .then(() => {
-      console.log("Connection estabislished with MongoDB");
+      console.log('Connection estabislished with MongoDB');
     })
     .catch((error) => console.error(error.message));
 
-  connection.on("connected", () => {
-    console.log("Mongoose connected to DB Cluster");
+  connection.on('connected', () => {
+    console.log('Mongoose connected to DB Cluster');
   });
 
-  connection.on("error", (error) => {
+  connection.on('error', (error) => {
     console.error(error.message);
   });
 
-  connection.on("disconnected", () => {
-    console.log("Mongoose Disconnected");
+  connection.on('disconnected', () => {
+    console.log('Mongoose Disconnected');
   });
 
   process.on('SIGINT', () => {
     connection.close(() => {
-        console.log('Mongoose connection closed on Application Timeout');
-        process.exit(0);
-    })
-})};
+      console.log('Mongoose connection closed on Application Timeout');
+      process.exit(0);
+    });
+  });
+};

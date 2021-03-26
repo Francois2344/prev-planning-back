@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 const hazardSchema = new mongoose.Schema({
-    hazardName: {
-        type: String,
-    },
+  hazardName: {
+    type: String,
+  },
 });
 
-const hazard = mongoose.model("HazardData", hazardSchema)
+const hazard = mongoose.model('HazardData', hazardSchema);
 module.exports = hazard;
