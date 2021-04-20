@@ -10,13 +10,13 @@ router.route('/').get((req, res) => {
 
 // ROUTE POST
 router.route('/add').post((req, res) => {
-  const { othername } = req.body;
+  const { otherName } = req.body;
 
-  const newOther = new Other({ othername });
+  const newOther = new Other({ otherName });
 
   newOther
     .save()
-    .then(() => res.json('Agency added'))
+    .then(() => res.json('Other added'))
     .catch((err) => res.status(400).json(`Error: ${err}`));
 });
 
