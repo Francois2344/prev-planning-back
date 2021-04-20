@@ -10,9 +10,9 @@ router.route('/').get((req, res) => {
 
 // ROUTE POST
 router.route('/add').post((req, res) => {
-  const { agencyname } = req.body;
+  const { agencyName } = req.body;
 
-  const newAgency = new Agency({ agencyname });
+  const newAgency = new Agency({ agencyName });
 
   newAgency
     .save()

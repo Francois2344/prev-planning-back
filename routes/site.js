@@ -10,9 +10,9 @@ router.route('/').get((req, res) => {
 
 // ROUTE POST
 router.route('/add').post((req, res) => {
-  const { sitename } = req.body;
+  const { siteName } = req.body;
 
-  const newSite = new Site({ sitename });
+  const newSite = new Site({ siteName });
 
   newSite
     .save()
