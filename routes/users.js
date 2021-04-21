@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const User = require('../models/preventer.model');
+const authPrivate = require('../middleware/authPrivate');
 
 // ROUTE GET
 router.route('/').get((req, res) => {
@@ -15,7 +16,7 @@ router.route('/:id').get((req, res) => {
 });
 
 // ROUTE POST
-router.route('/add').post((req, res) => {
+router.route('/add', authPrivate).post((req, res) => {
   const { firstname } = req.body;
   const { lastname } = req.body;
 
