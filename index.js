@@ -1,10 +1,31 @@
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const swaggerUI = require('swagger-ui-express');
+const swaggerJsDoc = require('swagger-jsdoc');
 require('./database/initDB')();
 
 const app = express();
 const PORT = process.env.PORT || 8000;
+
+const options = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Planning Prev API',
+      version: '1.0.0',
+      description: 'Prev Management',
+    },
+    servers: [
+      {
+        url: 'http://localhost:8000',
+      },
+    ],
+  },
+  apis: ['./routes/*.js'],
+};
+
+const specs = swaggerJsDoc(options);
 
 app.use(express.json());
 app.use(cookieParser());
@@ -14,6 +35,7 @@ app.use(
     credentials: true,
   })
 );
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
 
 app.get('/', (req, res) => {
   res.send('GET request to the homepage');
