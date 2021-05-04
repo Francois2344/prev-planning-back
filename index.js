@@ -55,6 +55,8 @@ app.use('/others', othersRouter);
 app.use('/sites', sitesRouter);
 app.use('/register', adminAuthRouter);
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server started on port${PORT}...`);
 });
+
+module.exports = server;

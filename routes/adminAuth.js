@@ -182,6 +182,7 @@ router.post('/login', async (req, res) => {
       .cookie('token', token, {
         httpOnly: true,
       })
+      .status(200)
       .send();
   } catch (err) {
     console.error(err);
