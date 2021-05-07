@@ -1,8 +1,11 @@
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const swaggerUI = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
+const fileRoutes = require('./routes/fileupload');
+
 require('./database/initDB')();
 
 const app = express();
@@ -37,6 +40,8 @@ app.use(
 );
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 app.get('/', (req, res) => {
   res.send('GET request to the homepage');
 });
@@ -54,6 +59,7 @@ app.use('/hazards', hazardsRouter);
 app.use('/others', othersRouter);
 app.use('/sites', sitesRouter);
 app.use('/register', adminAuthRouter);
+app.use('/imagesUpload', fileRoutes.routes);
 
 const server = app.listen(PORT, () => {
   console.log(`Server started on port${PORT}...`);
