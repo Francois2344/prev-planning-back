@@ -4,14 +4,22 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const swaggerUI = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
+const http = require('http');
+const https = require('https');
+const fs = require('fs');
 const fileRoutes = require('./routes/fileupload');
 
 require('./database/initDB')();
 
+const options = {
+  key: fs.readFileSync(path.resolve('selfsigned.key')),
+  cert: fs.readFileSync(path.resolve('selfsigned.cert')),
+};
+
 const app = express();
 const PORT = process.env.PORT || 8000;
 
-const options = {
+const optionsSwagger = {
   definition: {
     openapi: '3.0.0',
     info: {
@@ -28,7 +36,7 @@ const options = {
   apis: ['./routes/*.js'],
 };
 
-const specs = swaggerJsDoc(options);
+const specs = swaggerJsDoc(optionsSwagger);
 
 app.use(express.json());
 app.use(cookieParser());
@@ -64,5 +72,8 @@ app.use('/imagesUpload', fileRoutes.routes);
 const server = app.listen(PORT, () => {
   console.log(`Server started on port${PORT}...`);
 });
+
+http.createServer(app).listen(8080);
+https.createServer(options, app).listen(443);
 
 module.exports = server;
