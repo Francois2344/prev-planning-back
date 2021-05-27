@@ -45,8 +45,8 @@ const Hazard = require('../models/hazard.model');
  */
 
 // ROUTE GET
-router.get('/', (req, res) => {
-  Hazard.find()
+router.get('/', async (req, res) => {
+  await Hazard.find()
     .then((hazard) => res.json(hazard))
     .catch((err) => res.status(400).json(`Error: ${err}`));
 });
@@ -123,8 +123,8 @@ router.post('/add', async (req, res) => {
  *                  $ref: '#/components/schemas/hazard'
  */
 // ROUTE DELETE
-router.delete('/:id', (req, res) => {
-  Hazard.findByIdAndDelete(req.params.id)
+router.delete('/:id', async (req, res) => {
+  await Hazard.findByIdAndDelete(req.params.id)
     .then(() => res.json('Hazard deleted'))
     .catch((err) => res.status(400).json(`Error: ${err}`));
 });
@@ -160,8 +160,8 @@ router.delete('/:id', (req, res) => {
  */
 
 // ROUTE PUT
-router.put('/:id', (req, res) => {
-  Hazard.findByIdAndUpdate(req.params.id)
+router.put('/:id', async (req, res) => {
+  await Hazard.findByIdAndUpdate(req.params.id)
     .then(() => res.json('Hazard updated'))
     .catch((err) => res.status(400).json(`Error: ${err}`));
 });
