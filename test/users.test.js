@@ -13,3 +13,15 @@ describe('GET /', () => {
     });
   });
 });
+
+describe('POST /add', () => {
+  describe('give lastname and firstname', () => {
+    test('should respond with a 200 status code', async () => {
+      const res = await supertest(serveur).post('add').send({
+        firstname: '',
+        lastname: '',
+      });
+      expect(res.json);
+    });
+  });
+});

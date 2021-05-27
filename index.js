@@ -7,6 +7,7 @@ const swaggerJsDoc = require('swagger-jsdoc');
 const http = require('http');
 const https = require('https');
 const fs = require('fs');
+const helmet = require('helmet');
 const fileRoutes = require('./routes/fileupload');
 
 require('./database/initDB')();
@@ -39,6 +40,7 @@ const optionsSwagger = {
 const specs = swaggerJsDoc(optionsSwagger);
 
 app.use(express.json());
+app.use(helmet());
 app.use(cookieParser());
 app.use(
   cors({
@@ -46,6 +48,7 @@ app.use(
     credentials: true,
   })
 );
+
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
