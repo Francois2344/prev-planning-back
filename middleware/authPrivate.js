@@ -1,6 +1,8 @@
 /* eslint-disable consistent-return */
 const jwt = require('jsonwebtoken');
 
+// permet d'authentifier l'utilisateur via le token
+
 function authPrivate(req, res, next) {
   try {
     const { token } = req.cookies;

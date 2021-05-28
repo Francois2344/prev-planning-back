@@ -14,6 +14,8 @@ const fileSizeFormatter = (bytes, decimal) => {
   );
 };
 
+// upload de l'image
+
 const singleFileUpload = async (req, res) => {
   try {
     const file = new SingleFile({
@@ -29,6 +31,8 @@ const singleFileUpload = async (req, res) => {
     res.status(400).send(error.message);
   }
 };
+
+// affichage de l'image
 
 const getallSingleFiles = async (req, res) => {
   try {
