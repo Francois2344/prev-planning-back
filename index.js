@@ -13,8 +13,8 @@ const fileRoutes = require('./routes/fileupload');
 require('./database/initDB')();
 
 const options = {
-  key: fs.readFileSync(path.resolve('selfsigned.key')),
-  cert: fs.readFileSync(path.resolve('selfsigned.cert')),
+  key: fs.readFileSync(path.resolve('./key/selfsigned.key')),
+  cert: fs.readFileSync(path.resolve('./key/selfsigned.cert')),
 };
 
 const app = express();
