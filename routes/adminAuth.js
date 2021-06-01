@@ -110,6 +110,7 @@ router.post('/', async (req, res) => {
     res
       .cookie('token', token, {
         httpOnly: true,
+        secure: true,
       })
       .send();
   } catch (err) {
@@ -181,6 +182,7 @@ router.post('/login', async (req, res) => {
     res
       .cookie('token', token, {
         httpOnly: true,
+        secure: true,
       })
       .status(200)
       .send();
@@ -209,6 +211,7 @@ router.get('/logout', (req, res) => {
     .cookie('token', '', {
       httpOnly: true,
       expires: new Date(0),
+      secure: true,
     })
     .send();
 });

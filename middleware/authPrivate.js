@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 const jwt = require('jsonwebtoken');
 
-// permet d'authentifier l'utilisateur via le token
+// MiddleWare d'authenfication pour sécuriser les routes des utilisateurs (private route)
 
 function authPrivate(req, res, next) {
   try {
